@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace App;
 
-
 class App
 {
 
+    /**
+     * @var App/null
+     */
     private static $instance = null;
 
+    /**
+     * @var Player
+     */
     private $player;
 
+    /**
+     * @var integer
+     */
     private $playerPosition;
 
     public function __construct()
@@ -26,7 +34,7 @@ class App
      * @param Player $player
      * @return App|null
      */
-    public static function getInstance(Player $player)
+    public static function getInstance(Player $player): App
     {
         if (null === self::$instance)
         {

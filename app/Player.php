@@ -9,6 +9,9 @@ class Player
 {
     const START_POSITION = 1;
 
+    /**
+     * @var Player
+     */
     private static $instance = null;
 
     private $currentPosition;
@@ -23,7 +26,10 @@ class Player
     {
     }
 
-    public static function getInstance()
+    /**
+     * @return Player
+     */
+    public static function getInstance(): Player
     {
         if (null === self::$instance) {
             self::$instance = new self();
@@ -32,7 +38,11 @@ class Player
         return self::$instance;
     }
 
-    public function getNewPosition(int $diceValue)
+    /**
+     * @param int $diceValue
+     * @return int
+     */
+    public function getNewPosition(int $diceValue): int
     {
         $newPosition = $this->currentPosition + $diceValue;
         if ($newPosition > 100) {
