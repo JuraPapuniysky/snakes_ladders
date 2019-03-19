@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 
@@ -50,6 +52,22 @@ class Player
     }
 
     /**
+     * @return int
+     */
+    public function getCurrentPosition(): int
+    {
+        return $this->currentPosition;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    /**
      * @param int $position
      */
     private function setIsSnake(int $position)
@@ -67,19 +85,4 @@ class Player
         $this->message = 'ladder' . $this->currentPosition;
     }
 
-    /**
-     * @return int
-     */
-    public function getCurrentPosition(): int
-    {
-        return $this->currentPosition;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
 }
