@@ -1,66 +1,75 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App;
 
 class App
 {
-
-    /**
-     * @var App/null
-     */
-    private static $instance = null;
-
     /**
      * @var Player
      */
     private $player;
 
     /**
-     * @var integer
+     * @var Dice|DiceInterface
      */
-    private $playerPosition;
-
-    public function __construct()
-    {
-    }
-
-    public function __clone()
-    {
-    }
+    private $dice;
 
     /**
-     * @param Player $player
-     * @return App|null
+     * @var Message|MessageInterface
      */
-    public static function getInstance(Player $player): App
+    private $message;
+
+    /**
+     * App constructor.
+     * @param Player $player
+     * @param Message $message
+     * @param Dice $dice
+     */
+    public function __construct(Player $player, Message $message, Dice $dice)
     {
-        if (null === self::$instance)
-        {
-            self::$instance = new self();
-            self::$instance->player = $player;
+        $this->player = $player;
+        if ($dice instanceof DiceInterface) {
+            $this->dice = $dice;
         }
-        return self::$instance;
+
+        if ($message instanceof MessageInterface) {
+            $this->message = $message;
+        }
     }
 
     public function play()
     {
-        while ($this->playerPosition !== 100) {
-            $value = Dice::getValue();
-            $this->playerPosition = $this->player->getNewPosition($value);
-            sleep(1);
-            echo $this->getMessage($value, $this->player->getMessage());
+        while ($this->player->getCurrentPosition() !== 100) {
+            $value = $this->dice->getValue();
+            $this->getNewPosition($value);
+            usleep(10000);
+            echo $this->message->message;
         }
     }
 
     /**
-     * @param $diceValue
-     * @param $playerMessage
-     * @return string
+     * @param int $diceValue
+     * @return int
      */
-    private function getMessage(int $diceValue, string $playerMessage): string
+    private function getNewPosition(int $diceValue): int
     {
-        return $diceValue . '-' . $playerMessage . "\n";
+        $newPosition = $this->player->getCurrentPosition() + $diceValue;
+        if ($newPosition > 100) {
+            return $this->player->getCurrentPosition();
+        }
+
+        if (($newPosition % 9) === 0) {
+            $this->player->setIsSnake($newPosition);
+            $this->message->setMessage($diceValue, 'snake');
+        } elseif ($newPosition === 25 || $newPosition === 55) {
+            $this->player->setIsForward($newPosition);
+            $this->message->setMessage($diceValue, 'ladder');
+        } else {
+            $this->player->setCurrentPosition($this->player->getCurrentPosition() + $diceValue);
+            $this->message->setMessage($diceValue);
+        }
+
+        return $this->player->getCurrentPosition();
     }
+
 }

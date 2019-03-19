@@ -1,21 +1,23 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App;
-
 
 class Player
 {
     const START_POSITION = 1;
 
-    /**
-     * @var Player
-     */
     private static $instance = null;
 
+    /**
+     * @var integer
+     */
     private $currentPosition;
 
+    /**
+     * @var Message
+     */
     private $message;
 
     public function __construct()
@@ -39,26 +41,24 @@ class Player
     }
 
     /**
-     * @param int $diceValue
-     * @return int
+     * @param int $position
      */
-    public function getNewPosition(int $diceValue): int
+    public function setIsSnake(int $position)
     {
-        $newPosition = $this->currentPosition + $diceValue;
-        if ($newPosition > 100) {
-            return $this->currentPosition;
-        }
-        if (($newPosition % 9) === 0) {
-            $this->setIsSnake($newPosition);
-        } elseif ($newPosition === 25 || $newPosition === 55) {
-            $this->setIsForward($newPosition);
-        } else {
-            $this->currentPosition += $diceValue;
-            $this->message = (string)$this->currentPosition;
-        }
+        $this->currentPosition = $position - 3;
+    }
 
-        return $this->currentPosition;
+    /**
+     * @param int $position
+     */
+    public function setIsForward(int $position)
+    {
+        $this->currentPosition = $position + 10;
+    }
 
+    public function setCurrentPosition($position)
+    {
+        $this->currentPosition = $position;
     }
 
     /**
@@ -68,31 +68,4 @@ class Player
     {
         return $this->currentPosition;
     }
-
-    /**
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    /**
-     * @param int $position
-     */
-    private function setIsSnake(int $position)
-    {
-        $this->currentPosition = $position - 3;
-        $this->message = 'snake' . $this->currentPosition;
-    }
-
-    /**
-     * @param int $position
-     */
-    private function setIsForward(int $position)
-    {
-        $this->currentPosition = $position + 10;
-        $this->message = 'ladder' . $this->currentPosition;
-    }
-
 }
