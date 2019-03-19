@@ -2,18 +2,22 @@
 
 namespace App;
 
-
 class App
 {
-
+    /**
+     * @var Player
+     */
     private $player;
 
-    private $playerPosition;
-
+    /**
+     * @var Dice|DiceInterface
+     */
     private $dice;
 
+    /**
+     * @var Message|MessageInterface
+     */
     private $message;
-
 
     /**
      * App constructor.
@@ -24,10 +28,11 @@ class App
     public function __construct(Player $player, Message $message, Dice $dice)
     {
         $this->player = $player;
-        if ($dice instanceof DiceInterface){
+        if ($dice instanceof DiceInterface) {
             $this->dice = $dice;
         }
-        if ($message instanceof  MessageInterface){
+
+        if ($message instanceof MessageInterface) {
             $this->message = $message;
         }
     }
@@ -36,21 +41,26 @@ class App
     {
         while ($this->player->getCurrentPosition() !== 100) {
             $value = $this->dice->getValue();
-            $this->playerPosition = $this->getNewPosition($value);
+            $this->getNewPosition($value);
             usleep(10000);
             echo $this->message->message;
         }
     }
 
-    public function getNewPosition(int $diceValue)
+    /**
+     * @param int $diceValue
+     * @return int
+     */
+    private function getNewPosition(int $diceValue): int
     {
         $newPosition = $this->player->getCurrentPosition() + $diceValue;
         if ($newPosition > 100) {
             return $this->player->getCurrentPosition();
         }
+
         if (($newPosition % 9) === 0) {
             $this->player->setIsSnake($newPosition);
-            $this->message->setMessage($diceValue,'snake');
+            $this->message->setMessage($diceValue, 'snake');
         } elseif ($newPosition === 25 || $newPosition === 55) {
             $this->player->setIsForward($newPosition);
             $this->message->setMessage($diceValue, 'ladder');
@@ -60,8 +70,6 @@ class App
         }
 
         return $this->player->getCurrentPosition();
-
     }
-
 
 }

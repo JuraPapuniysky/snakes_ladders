@@ -1,11 +1,15 @@
 <?php
 
-namespace App;
+declare(strict_types = 1);
 
+namespace App;
 
 class Dice implements DiceInterface
 {
-    public function getValue()
+    /**
+     * @return int
+     */
+    public function getValue(): int
     {
         return rand(1, 6);
     }

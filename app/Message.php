@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+declare(strict_types = 1);
 
+namespace App;
 
 class Message extends AbstractMessage implements MessageInterface
 {
-
     /**
      * @param int $diceValue
      * @param string|null $state
@@ -13,13 +13,15 @@ class Message extends AbstractMessage implements MessageInterface
     public function setMessage(int $diceValue, string $state = null)
     {
         if ($state === null) {
-            $this->message = $diceValue . '-' . $this->player->getCurrentPosition() . "\n";
+            $curPosition = $this->player->getCurrentPosition();
+            $this->message = "${diceValue}-${curPosition}\n";
         } else {
-            $this->message = $diceValue . '-' . $this->getPlayerMessage($state) . "\n";
+            $playerMessage = $this->getPlayerMessage($state);
+            $this->message = "${diceValue}-${playerMessage}\n";
         }
     }
 
-    private function getPlayerMessage($state): string
+    private function getPlayerMessage(string $state): string
     {
         return $state . $this->player->getCurrentPosition();
     }

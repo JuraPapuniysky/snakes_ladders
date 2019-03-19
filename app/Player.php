@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+declare(strict_types = 1);
 
+namespace App;
 
 class Player
 {
@@ -9,8 +10,14 @@ class Player
 
     private static $instance = null;
 
+    /**
+     * @var integer
+     */
     private $currentPosition;
 
+    /**
+     * @var Message
+     */
     private $message;
 
     public function __construct()
@@ -21,7 +28,10 @@ class Player
     {
     }
 
-    public static function getInstance()
+    /**
+     * @return Player
+     */
+    public static function getInstance(): Player
     {
         if (null === self::$instance) {
             self::$instance = new self();
@@ -57,18 +67,5 @@ class Player
     public function getCurrentPosition(): int
     {
         return $this->currentPosition;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
-    }
-
-    public function setMessage($message)
-    {
-        $this->message = $message;
     }
 }

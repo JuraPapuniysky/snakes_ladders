@@ -4,5 +4,5 @@ namespace App;
 
 interface DiceInterface
 {
-    public function getValue();
+    public function getValue(): int ;
 }
