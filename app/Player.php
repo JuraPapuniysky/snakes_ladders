@@ -15,11 +15,6 @@ class Player
      */
     private $currentPosition;
 
-    /**
-     * @var Message
-     */
-    private $message;
-
     public function __construct()
     {
     }
