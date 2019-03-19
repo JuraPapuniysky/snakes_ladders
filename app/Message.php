@@ -3,16 +3,8 @@
 namespace App;
 
 
-class Message
+class Message extends AbstractMessage implements MessageInterface
 {
-    public $message;
-
-    public $player;
-
-    public function __construct(Player $player)
-    {
-        $this->player = $player;
-    }
 
     /**
      * @param int $diceValue

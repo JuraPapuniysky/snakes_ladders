@@ -24,8 +24,12 @@ class App
     public function __construct(Player $player, Message $message, Dice $dice)
     {
         $this->player = $player;
-        $this->dice = $dice;
-        $this->message = $message;
+        if ($dice instanceof DiceInterface){
+            $this->dice = $dice;
+        }
+        if ($message instanceof  MessageInterface){
+            $this->message = $message;
+        }
     }
 
     public function play()

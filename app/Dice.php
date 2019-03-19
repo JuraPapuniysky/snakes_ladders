@@ -3,7 +3,7 @@
 namespace App;
 
 
-class Dice
+class Dice implements DiceInterface
 {
     public function getValue()
     {
