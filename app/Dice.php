@@ -5,7 +5,7 @@ namespace App;
 
 class Dice
 {
-    public static function getValue()
+    public function getValue()
     {
         return rand(1, 6);
     }
