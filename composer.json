@@ -1,13 +1,13 @@
 {
-    "name": "0.0.1/try-make-package",
+    "name": "snakes_ladders",
     "description": "just a test",
     "require": {
         "php": ">=7.2"
     },
     "authors": [
         {
-            "name": "hanlei",
-            "email": "nicehanlei@163.com"
+            "name": "",
+            "email": ""
         }
     ],
     "minimum-stability": "stable",
