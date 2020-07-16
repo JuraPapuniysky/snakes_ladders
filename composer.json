@@ -1,20 +1,16 @@
 {
-    "name": "snakes_ladders",
+    "name": "jura/snakes_ladders",
     "description": "just a test",
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.4.*",
+        "php-di/php-di": "^6.2"
     },
-    "authors": [
-        {
-            "name": "",
-            "email": ""
-        }
-    ],
     "minimum-stability": "stable",
 
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "AppV2\\": "appV2/"
         }
     } 
 }
