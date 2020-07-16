@@ -31,17 +31,12 @@ class SnakesLadders implements GameInterface
 
     public function play(): void
     {
-        $time = microtime(true);
-
         while ($this->playerCurrentPosition !== 100) {
             $value = $this->player->throwDie($this->dice);
             $this->getNewPosition($value);
             usleep(10000);
             $this->messenger->send($this->message);
         }
-
-        $executeTime = microtime(true) - $time;
-        echo (string)$executeTime . PHP_EOL;
     }
 
     private function getNewPosition(int $diceValue): int
