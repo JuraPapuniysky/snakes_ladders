@@ -36,9 +36,7 @@ class SnakesLadders implements GameInterface
         while ($this->playerCurrentPosition !== 100) {
             $value = $this->player->throwDie($this->dice);
             $this->getNewPosition($value);
-            //usleep(1000);
-            //echo $this->message->getText().PHP_EOL;
-
+            usleep(10000);
             $this->messenger->send($this->message);
         }
 
